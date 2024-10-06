@@ -129,33 +129,41 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="export_excel.php" class="btn">Exporter en Excel</a>
 
         <table>
-            <thead>
-                <tr>
-                    <th>Nom de l'étudiant</th>
-                    <th>Matricule</th>
-                    <th>ISBN</th>
-                    <th>Titre</th>
-                    <th>Auteur</th>
-                    <th>Date de Prêt</th>
-                    <th>Date de Retour</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($transactions as $transaction): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($transaction['nom_etudiant']); ?></td>
-                        <td><?= htmlspecialchars($transaction['matricule_etudiant']); ?></td>
-                        <td><?= htmlspecialchars($transaction['isbn']); ?></td>
-                        <td><?= htmlspecialchars($transaction['titre_livre']); ?></td>
-                        <td><?= htmlspecialchars($transaction['auteur']); ?></td>
-                        <td><?= htmlspecialchars($transaction['date_pret']); ?></td>
-                        <td><?= htmlspecialchars($transaction['date_retour']); ?></td>
-                        <td><?= htmlspecialchars($transaction['status']); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <thead>
+        <tr>
+            <th>Nom de l'étudiant</th>
+            <th>Matricule</th>
+            <th>ISBN</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Date de Prêt</th>
+            <th>Date de Retour</th>
+            <th>Status</th>
+            <th>Actions</th> <!-- Add this column for actions -->
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($transactions as $transaction): ?>
+            <tr>
+                <td><?= htmlspecialchars($transaction['nom_etudiant']); ?></td>
+                <td><?= htmlspecialchars($transaction['matricule_etudiant']); ?></td>
+                <td><?= htmlspecialchars($transaction['isbn']); ?></td>
+                <td><?= htmlspecialchars($transaction['titre_livre']); ?></td>
+                <td><?= htmlspecialchars($transaction['auteur']); ?></td>
+                <td><?= htmlspecialchars($transaction['date_pret']); ?></td>
+                <td><?= htmlspecialchars($transaction['date_retour']); ?></td>
+                <td><?= htmlspecialchars($transaction['status']); ?></td>
+                <td>
+                    <form action="delete_transaction.php" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= $transaction['id']; ?>">
+                        <button type="submit" class="btn delete-btn">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
     </div>
 </body>
 </html>
